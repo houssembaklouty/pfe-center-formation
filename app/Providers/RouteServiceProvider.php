@@ -46,6 +46,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapFormateurRoutes();
+
         $this->mapAdminRoutes();
 
         //
@@ -64,6 +66,21 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/admin.php'));
+    }
+
+    /**
+     * Define the "formateur" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapFormateurRoutes()
+    {
+        Route::prefix('formateur')
+             ->middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/formateur.php'));
     }
 
     /**

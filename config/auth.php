@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'formateur' => [
+            'driver' => 'session',
+            'provider' => 'formateurs',
+        ],
+
         'client' => [
             'driver' => 'session',
             'provider' => 'clients',
@@ -81,6 +86,11 @@ return [
     */
 
     'providers' => [
+        'formateurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Formateur::class,
+        ],
+
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Client::class,
@@ -123,6 +133,13 @@ return [
     */
 
     'passwords' => [
+        'formateurs' => [
+            'provider' => 'formateurs',
+            'table' => 'formateur_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
         'clients' => [
             'provider' => 'clients',
             'table' => 'client_password_resets',

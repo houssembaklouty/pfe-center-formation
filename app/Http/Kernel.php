@@ -52,6 +52,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'formateur.auth' => \App\Http\Middleware\RedirectIfNotFormateur::class,
+        'formateur.guest' => \App\Http\Middleware\RedirectIfFormateur::class,
+        // 'formateur.verified' => \App\Http\Middleware\EnsureFormateurEmailIsVerified::class,
+        // 'formateur.password.confirm' => \App\Http\Middleware\RequireFormateurPassword::class,
         'client.auth' => \App\Http\Middleware\RedirectIfNotClient::class,
         'client.guest' => \App\Http\Middleware\RedirectIfClient::class,
         // 'client.verified' => \App\Http\Middleware\EnsureClientEmailIsVerified::class,
