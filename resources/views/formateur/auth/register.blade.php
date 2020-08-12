@@ -32,11 +32,25 @@
                                 <i class="icon-user"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control {{ $errors->has('name')?'is-invalid':'' }}" name="name" value="{{ old('name') }}"
-                                   placeholder="Full Name">
+                            <input type="text" class="form-control {{ $errors->has('nom')?'is-invalid':'' }}" name="nom" value="{{ old('nom') }}"
+                                   placeholder="Nom">
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('name') }}</strong>
+                                    <strong>{{ $errors->first('nom') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="icon-user"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control {{ $errors->has('prenom')?'is-invalid':'' }}" name="prenom" value="{{ old('prenom') }}"
+                                   placeholder="Prenom">
+                            @if ($errors->has('prenom'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('prenom') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -74,6 +88,32 @@
                             @if ($errors->has('specialite'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('specialite') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">--</span>
+                            </div>
+                            <input type="text" class="form-control {{ $errors->has('region')?'is-invalid':'' }}" name="region" value="{{ old('region') }}"
+                                   placeholder="Region">
+                            @if ($errors->has('region'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('region') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">--</span>
+                            </div>
+                            <input type="text" class="form-control {{ $errors->has('tel')?'is-invalid':'' }}" name="tel" value="{{ old('tel') }}"
+                                   placeholder="Tel">
+                            @if ($errors->has('tel'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('tel') }}</strong>
                                 </span>
                             @endif
                         </div>

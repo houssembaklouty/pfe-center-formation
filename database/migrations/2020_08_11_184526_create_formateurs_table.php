@@ -15,10 +15,13 @@ class CreateFormateursTable extends Migration
     {
         Schema::create('formateurs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('nom');
+            $table->string('prenom');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('region')->nullable();
+            $table->string('tel')->nullable();
             $table->string('grade')->nullable();
             $table->string('specialite')->nullable();
             $table->boolean('etat')->nullable()->default(1);
