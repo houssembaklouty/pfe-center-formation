@@ -43,7 +43,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link" style="margin-right: 10px" data-toggle="dropdown" href="#" role="button"
                aria-haspopup="true" aria-expanded="false">
-               {{ Auth::guard('formateur')->user()->nom }}
+               {{ Auth::guard('condidat')->user()->nom }}
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center">
@@ -63,11 +63,11 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">
                     <i class="fa fa-shield"></i> Lock Account</a>
-                <a href="{{ route('formateur.logout') }}" class="dropdown-item btn btn-default btn-flat"
+                <a href="{{ route('condidat.logout') }}" class="dropdown-item btn btn-default btn-flat"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-lock"></i>Logout
                 </a>
-                <form id="logout-form" action="{{ route('formateur.logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('condidat.logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </div>

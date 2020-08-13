@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'condidat' => [
+            'driver' => 'session',
+            'provider' => 'condidats',
+        ],
+
         'formateur' => [
             'driver' => 'session',
             'provider' => 'formateurs',
@@ -86,6 +91,11 @@ return [
     */
 
     'providers' => [
+        'condidats' => [
+            'driver' => 'eloquent',
+            'model' => App\Condidat::class,
+        ],
+
         'formateurs' => [
             'driver' => 'eloquent',
             'model' => App\Formateur::class,
@@ -133,6 +143,13 @@ return [
     */
 
     'passwords' => [
+        'condidats' => [
+            'provider' => 'condidats',
+            'table' => 'condidat_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
         'formateurs' => [
             'provider' => 'formateurs',
             'table' => 'formateur_password_resets',

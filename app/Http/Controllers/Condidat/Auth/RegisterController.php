@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Formateur\Auth;
+namespace App\Http\Controllers\Condidat\Auth;
 
-use App\Formateur;
+use App\Condidat;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,11 +25,11 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect formateurs after registration.
+     * Where to redirect condidats after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/formateur';
+    protected $redirectTo = '/condidat';
 
     /**
      * Create a new controller instance.
@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('formateur.guest:formateur');
+        $this->middleware('condidat.guest:condidat');
     }
 
     /**
@@ -53,17 +53,17 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'nom' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:formateurs'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:condidats'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
     /**
-     * Create a new formateur instance after a valid registration.
+     * Create a new condidat instance after a valid registration.
      *
      * @param array $data
      *
-     * @return \App\Formateur
+     * @return \App\Condidat
      */
     protected function create(array $data)
     {
@@ -78,14 +78,13 @@ class RegisterController extends Controller
             $data['profil_img'] = $filename;
         }
 
-        return Formateur::create([
+        return Condidat::create([
             'nom' => $data['nom'],
             'prenom' => $data['prenom'],
             'region' => $data['region'],
             'tel' => $data['tel'],
             'email' => $data['email'],
-            'grade' => $data['grade'],
-            'specialite' => $data['specialite'],
+            'niveau' => $data['niveau'],
             'password' => Hash::make($data['password']),
             'profil_img' => $data['profil_img'],
         ]);
@@ -98,7 +97,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('formateur.auth.register');
+        return view('condidat.auth.register');
     }
 
     /**
@@ -108,6 +107,6 @@ class RegisterController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('formateur');
+        return Auth::guard('condidat');
     }
 }

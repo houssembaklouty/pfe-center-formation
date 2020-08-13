@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Formateur Login | {{ config('app.name') }}</title>
+    <title>Condidat Login | {{ config('app.name') }}</title>
     <!-- Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <!-- Theme style -->
@@ -24,9 +24,9 @@
             <div class="card-group">
                 <div class="card p-4">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('formateur.login') }}" aria-label="{{ __('Login') }}">
+                        <form method="POST" action="{{ route('condidat.login') }}" aria-label="{{ __('Login') }}">
                             @csrf
-                            <h1>Formateur Login</h1>
+                            <h1>Condidat Login</h1>
                             <p class="text-muted">Sign In to your account</p>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -60,8 +60,8 @@
                                     <button class="btn btn-primary px-4" type="submit">Login</button>
                                 </div>
                                 <div class="col-6 text-right">
-                                    @if (Route::has('formateur.password.request'))
-                                        <a class="btn btn-link px-0" href="{{ route('formateur.password.request') }}">
+                                    @if (Route::has('condidat.password.request'))
+                                        <a class="btn btn-link px-0" href="{{ route('condidat.password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif

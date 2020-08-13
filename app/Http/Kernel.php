@@ -52,6 +52,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'condidat.auth' => \App\Http\Middleware\RedirectIfNotCondidat::class,
+        'condidat.guest' => \App\Http\Middleware\RedirectIfCondidat::class,
+        // 'condidat.verified' => \App\Http\Middleware\EnsureCondidatEmailIsVerified::class,
+        // 'condidat.password.confirm' => \App\Http\Middleware\RequireCondidatPassword::class,
         'formateur.auth' => \App\Http\Middleware\RedirectIfNotFormateur::class,
         'formateur.guest' => \App\Http\Middleware\RedirectIfFormateur::class,
         // 'formateur.verified' => \App\Http\Middleware\EnsureFormateurEmailIsVerified::class,

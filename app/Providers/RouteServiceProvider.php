@@ -46,6 +46,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapCondidatRoutes();
+
         $this->mapFormateurRoutes();
 
         $this->mapAdminRoutes();
@@ -81,6 +83,21 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/formateur.php'));
+    }
+
+    /**
+     * Define the "condidat" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapCondidatRoutes()
+    {
+        Route::prefix('condidat')
+             ->middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/condidat.php'));
     }
 
     /**
