@@ -79,7 +79,7 @@
 </header>
 
 <div class="app-body">
-    @include('layouts.sidebar')
+    @include('admin.layouts.sidebar')
     <main class="main">
         @yield('content')
     </main>

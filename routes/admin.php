@@ -4,6 +4,13 @@ Route::group(['namespace' => 'Admin'], function() {
     // Dashboard
     Route::get('/', 'HomeController@index')->name('admin.home');
 
+    Route::group(['as' => 'admin.', 'middleware' => 'admin.auth'], function() {
+
+        Route::resource('categories', 'CategorieController');
+        Route::resource('formations', 'FormationController');
+    });
+
+
     // Login
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Auth\LoginController@login');
