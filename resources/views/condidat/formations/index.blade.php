@@ -16,8 +16,13 @@
                             
                         </div>
                         <div class="card-body">
-                            <h6 class="card-title">Le: {{ $formation->date->format('d-m-Y') }} / {{ $formation->duree }} jour(s).</h6>
-                            <p class="card-text"> {{ $formation->description }} </p>
+                            <h6 class="card-title text-left">
+                                Le: {{ $formation->date->format('d-m-Y') }}
+                                <div class="text-right">
+                                    {{ $formation->duree }} jour(s)
+                                </div>
+                            </h6>
+                            <p class="card-text text-justify mt-3"> {{ $formation->description }} </p>
                             <a href="#" class="btn btn-primary">Acheter ({{ $formation->prix }} DT)</a>
                         </div>
                     </div>
@@ -26,6 +31,8 @@
 
             </div>
         </div>
+
+        {{ $formations->links() }}
     </div>
 </div>
 @endsection

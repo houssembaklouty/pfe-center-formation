@@ -30,7 +30,7 @@ class FormationController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $formations = $this->formationRepository->paginate(10);
+        $formations = $this->formationRepository->paginate(3);
 
         //  dd($formations);
 
