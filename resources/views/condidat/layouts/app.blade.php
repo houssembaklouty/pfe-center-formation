@@ -76,7 +76,7 @@
 </header>
 
 <div class="app-body">
-    @include('layouts.sidebar')
+    @include('condidat.layouts.sidebar')
     <main class="main">
         @yield('content')
     </main>

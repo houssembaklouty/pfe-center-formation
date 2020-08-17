@@ -4,6 +4,11 @@ Route::group(['namespace' => 'Condidat'], function() {
     // Dashboard
     Route::get('/', 'HomeController@index')->name('condidat.home');
 
+    Route::group(['as' => 'condidat.', 'middleware' => 'condidat.auth'], function() {
+
+        Route::resource('formations', 'FormationController');
+    });
+
     // Login
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('condidat.login');
     Route::post('login', 'Auth\LoginController@login');

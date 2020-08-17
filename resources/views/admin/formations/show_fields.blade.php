@@ -34,6 +34,12 @@
     <p>{{ $formation->duree }}</p>
 </div>
 
+<!-- Prix Field -->
+<div class="form-group">
+    {!! Form::label('prix', 'Prix:') !!}
+    <p>{{ $formation->prix }}</p>
+</div>
+
 <!-- Id Categorie Field -->
 <div class="form-group">
     {!! Form::label('id_categorie', 'Categorie:') !!}

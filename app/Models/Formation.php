@@ -31,7 +31,8 @@ class Formation extends Model
         'date',
         'etat',
         'duree',
-        'id_categorie'
+        'id_categorie',
+        'prix'
     ];
 
     /**
@@ -58,7 +59,8 @@ class Formation extends Model
         'title' => 'required',
         'date' => 'required',
         'duree' => 'required',
-        'id_categorie' => 'required'
+        'id_categorie' => 'required',
+        'prix' => 'required'
     ];
 
     /**

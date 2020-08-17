@@ -7,6 +7,7 @@
         <th>Date</th>
         <th>Etat</th>
         <th>Duree</th>
+        <th>Prix (en DT)</th>
         <th>Categorie</th>
                 <th colspan="3">Action</th>
             </tr>
@@ -19,6 +20,7 @@
             <td>{{ $formation->date }}</td>
             <td>{{ $formation->etat }}</td>
             <td>{{ $formation->duree }}</td>
+            <td>{{ $formation->prix }}</td>
             <td>{{ $formation->categorie->title_cat }}</td>
                 <td>
                     {!! Form::open(['route' => ['admin.formations.destroy', $formation->id], 'method' => 'delete']) !!}

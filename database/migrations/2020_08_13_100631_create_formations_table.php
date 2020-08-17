@@ -20,6 +20,7 @@ class CreateFormationsTable extends Migration
             $table->dateTime('date');
             $table->boolean('etat')->default(1);
             $table->smallInteger('duree');
+            $table->double('prix');
             $table->integer('id_categorie')->unsigned();
             $table->foreign('id_categorie')->references('id')->on('categories');
             $table->timestamps();

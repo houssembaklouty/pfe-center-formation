@@ -68,6 +68,13 @@
     {!! Form::number('duree', null, ['class' => 'form-control']) !!}
 </div>
 
+
+<!-- Duree Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('prix', 'Prix:(en DT)') !!}
+    {!! Form::number('prix', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Id Categorie Field -->
 <!-- 
     <div class="form-group col-sm-6">
