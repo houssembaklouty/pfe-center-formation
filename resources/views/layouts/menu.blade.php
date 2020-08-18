@@ -10,3 +10,9 @@
         <span>Formations</span>
     </a>
 </li>
+<li class="nav-item {{ Request::is('actualites*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('actualites.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Actualites</span>
+    </a>
+</li>
