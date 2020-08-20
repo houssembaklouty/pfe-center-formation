@@ -10,6 +10,8 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::resource('formations', 'FormationController');
         Route::resource('actualites', 'ActualiteController');
         Route::resource('peyements', 'PeyementController');
+        Route::resource('formateurs', 'FormateurController');
+        Route::resource('condidats', 'CondidatController');
     });
 
 

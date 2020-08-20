@@ -24,3 +24,15 @@
         <span>Peyements</span>
     </a>
 </li>
+<li class="nav-item {{ Request::is('admin.formateurs*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.formateurs.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Formateurs</span>
+    </a>
+</li>
+<li class="nav-item {{ Request::is('admin.condidats*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.condidats.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Condidats</span>
+    </a>
+</li>

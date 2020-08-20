@@ -76,7 +76,7 @@
 </header>
 
 <div class="app-body">
-    @include('formatuer.layouts.sidebar')
+    @include('formateur.layouts.sidebar')
     <main class="main">
         @yield('content')
     </main>
