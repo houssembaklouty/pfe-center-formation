@@ -3,6 +3,7 @@
 Route::group(['namespace' => 'Condidat'], function() {
     // Dashboard
     Route::get('/', 'HomeController@index')->name('condidat.home');
+    Route::post('/store/payment', 'PaymentController@store');
 
     Route::group(['as' => 'condidat.', 'middleware' => 'condidat.auth'], function() {
 

@@ -12,9 +12,15 @@
     </a>
 </li>
 
-<li class="nav-item {{ Request::is('actualites*') ? 'active' : '' }}">
+<li class="nav-item {{ Request::is('admin.actualites*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.actualites.index') }}">
         <i class="nav-icon icon-cursor"></i>
         <span>Actualites</span>
+    </a>
+</li>
+<li class="nav-item {{ Request::is('admin.peyements*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.peyements.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Peyements</span>
     </a>
 </li>

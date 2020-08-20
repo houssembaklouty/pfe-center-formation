@@ -16,3 +16,9 @@
         <span>Actualites</span>
     </a>
 </li>
+<li class="nav-item {{ Request::is('peyements*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('peyements.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Peyements</span>
+    </a>
+</li>

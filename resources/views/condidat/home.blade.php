@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>Condidat</title>
 
@@ -12,6 +13,12 @@
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.1/examples/album/album.css" rel="stylesheet">
+
+    <style>
+    .alert { position: relative; padding: .5rem .8rem; margin-bottom: 0; }
+    .alert_success_popup { margin-bottom: .5rem; }
+    .alert-dismissible .close { padding: .5rem .8rem;}
+    </style>
   </head>
 
   <body>
@@ -67,6 +74,8 @@
 
         <h3 class="mb-4">Formations</h3>
 
+        <input type="hidden" name="current_condidat" id="current_condidat" value="{{ Auth::guard('condidat')->user()->id }}" >
+
           <div class="row">
             @foreach($formations as $formation)
             <div class="col-md-4">
@@ -81,9 +90,57 @@
                     <p class="card-text text-justify">{{ $formation->description }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#formation_id_{{ $formation->id }}">
                                 Acheter ({{ $formation->prix }} DT)
                             </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="formation_id_{{ $formation->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Payement du {{ $formation->title }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="alert alert_success_popup alert-success alert-dismissible fade" role="alert">
+                                      <strong>Paiement validé!</strong>
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+
+                                    <p class="card-text text-justify">Description: {{ $formation->description }}</p>
+                                    <p>Prix: {{ $formation->prix }} DT</p>
+
+                                    <div class="form-group">
+                                        <label for="mode_de_payement_{{ $formation->id }}">Mode de Payement</label>
+                                        <select name="mode_de_payement" class="form-control" id="mode_de_payement_{{ $formation->id }}">
+                                            <option value="Espèce">Espèce</option>
+                                            <option value="Chèque">Chèque</option>
+                                            <option value="Virement bancaire">Virement bancaire</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="alert alert_error_popup alert-danger alert-dismissible fade" role="alert">
+                                      <strong>Erreur, paiement non valide!</strong>
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                    <button type="button" data-id="{{ $formation->id }}" class="button_save btn btn-primary">Save</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+
                         </div>
                         <small class="text-muted">
                             Le: {{ $formation->date->format('d-m-Y') }}
@@ -152,5 +209,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.button_save').on('click', function() {
+                var formation_id = $(this).attr("data-id"),
+                    selected_option_id = 'mode_de_payement_'+formation_id,
+                    selected_option_value = $( "#"+selected_option_id ).val(),
+                    current_condidat_id = $( "#current_condidat" ).val()
+                ;
+                
+                console.log('formation_id= ', formation_id);
+                console.log('selected_option_value= ', selected_option_value);
+                console.log('current_condidat_id= ', current_condidat_id);
+
+
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+
+                $.ajax({
+                  type:'POST',
+                  url:'/condidat/store/payment',
+                  data:{
+                    formation_id:formation_id, 
+                    mode_payement:selected_option_value, 
+                    condidat_id:current_condidat_id
+                  },
+                  success:function(data){
+                    // alert('DONE!');
+                    $( ".alert_success_popup" ).removeClass('show');
+                    $( ".alert_success_popup" ).addClass('show');
+                  },
+
+                  error : function(resultat, statut, erreur){
+                    $( ".alert_error_popup" ).removeClass('show');
+                    $( ".alert_error_popup" ).addClass('show');
+                  }
+                });
+
+            });
+        });
+    </script>
+
+
+
   </body>
 </html>

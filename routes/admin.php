@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::resource('categories', 'CategorieController');
         Route::resource('formations', 'FormationController');
         Route::resource('actualites', 'ActualiteController');
-    
+        Route::resource('peyements', 'PeyementController');
     });
 
 
