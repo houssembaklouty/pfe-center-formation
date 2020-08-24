@@ -13,8 +13,14 @@
         @foreach($peyements as $peyement)
             <tr>
                 <td>{{ $peyement->mode_payement }}</td>
-            <td>{{ $peyement->formation->title }}</td>
-            <td>{{ $peyement->condidat->nom .''. $peyement->condidat->nom }} / {{ $peyement->condidat->email  }}  </td>
+            <td>
+                <a href="{{ route('admin.peyements.show', $peyement->formation->id) }}">{{ $peyement->formation->title }}</a>
+            </td>
+            <td>
+                <a href="{{ route('admin.condidats.index') }}">
+                    {{ $peyement->condidat->nom .''. $peyement->condidat->prenom }} / {{ $peyement->condidat->email  }}
+                </a>
+              </td>
             <td>{{ $peyement->prix }}</td>
                 <td>
                     {!! Form::open(['route' => ['admin.peyements.destroy', $peyement->id], 'method' => 'delete']) !!}

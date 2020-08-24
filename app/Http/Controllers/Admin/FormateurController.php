@@ -2,89 +2,137 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateFormateurRequest;
+use App\Http\Requests\UpdateFormateurRequest;
+use App\Repositories\FormateurRepository;
+use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use App\Formateur;
+use Flash;
+use Response;
 
-class FormateurController extends Controller
+class FormateurController extends AppBaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    /** @var  FormateurRepository */
+    private $formateurRepository;
+
+    public function __construct(FormateurRepository $formateurRepo)
     {
-        $formateurs = Formateur::paginate(10);
-
-        // dd($formateurs);
-
-        return view('admin.formateurs.index', compact('formateurs'));
+        $this->formateurRepository = $formateurRepo;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the Formateur.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $formateurs = $this->formateurRepository->paginate(10);
+
+        return view('admin.formateurs.index')
+            ->with('formateurs', $formateurs);
+    }
+
+    /**
+     * Show the form for creating a new Formateur.
+     *
+     * @return Response
      */
     public function create()
     {
-        //
+        return view('admin.formateurs.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified Categorie.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
-        //
+        $formateur = $this->formateurRepository->find($id);
+
+        if (empty($formateur)) {
+            Flash::error('formateur not found');
+
+            return redirect(route('admin.formateurs.index'));
+        }
+
+        return view('admin.formateurs.show')->with('formateur', $formateur);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified formateur.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     *
+     * @return Response
      */
     public function edit($id)
     {
-        //
+        $formateur = $this->formateurRepository->find($id);
+
+        if (empty($formateur)) {
+            Flash::error('formateur not found');
+
+            return redirect(route('admin.formateurs.index'));
+        }
+
+        return view('admin.formateurs.edit')->with('formateur', $formateur);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified formateur in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @param UpdateFormateurRequest $request
+     *
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update($id, UpdateFormateurRequest $request)
     {
-        //
+        $formateur = $this->formateurRepository->find($id);
+
+        if (empty($formateur)) {
+            Flash::error('formateur not found');
+
+            return redirect(route('admin.formateurs.index'));
+        }
+
+        $formateur = $this->formateurRepository->update($request->all(), $id);
+
+        Flash::success('formateur updated successfully.');
+
+        return redirect(route('admin.formateurs.index'));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified formateur from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy($id)
     {
-        //
+        $formateur = $this->formateurRepository->find($id);
+
+        if (empty($formateur)) {
+            Flash::error('formateur not found');
+
+            return redirect(route('admin.formateurs.index'));
+        }
+
+        $this->formateurRepository->delete($id);
+
+        Flash::success('formateur deleted successfully.');
+
+        return redirect(route('admin.formateurs.index'));
     }
 }
