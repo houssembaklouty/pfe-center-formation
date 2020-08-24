@@ -8,6 +8,7 @@
                 <th>Region</th>
                 <th>Niveau</th>
                 <th>Etat</th>
+                <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,15 @@
                     @if($condidat->etat == 1) Active
                     @else Compte désactiver
                     @endif
+                </td>
+                <td>
+                    {!! Form::open(['route' => ['admin.condidats.destroy', $condidat->id], 'method' => 'delete']) !!}
+                    <div class='btn-group'>
+                        <a href="{{ route('admin.condidats.show', [$condidat->id]) }}" class='btn btn-ghost-success'><i class="fa fa-eye"></i></a>
+                        <a href="{{ route('admin.condidats.edit', [$condidat->id]) }}" class='btn btn-ghost-info'><i class="fa fa-edit"></i></a>
+                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-ghost-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    </div>
+                    {!! Form::close() !!}
                 </td>
             </tr>
         @endforeach

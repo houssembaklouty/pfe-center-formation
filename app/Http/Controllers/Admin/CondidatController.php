@@ -2,89 +2,126 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateCondidatRequest;
+use App\Repositories\CondidatRepository;
+use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use App\Condidat;
+use Flash;
+use Response;
 
-class CondidatController extends Controller
+class CondidatController extends AppBaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    /** @var CondidatRepository */
+    private $condidatRepository;
+
+    public function __construct(CondidatRepository $condidatRepo)
     {
-        $condidats = Condidat::paginate(10);
-
-        // dd($condidats);
-
-        return view('admin.condidats.index', compact('condidats'));
+        $this->condidatRepository = $condidatRepo;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the Condidat.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        $condidats = $this->condidatRepository->paginate(10);
+
+        return view('admin.condidats.index')
+            ->with('condidats', $condidats);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified Categorie.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
-        //
+        $condidat = $this->condidatRepository->find($id);
+
+        if (empty($condidat)) {
+            Flash::error('condidat not found');
+
+            return redirect(route('admin.condidats.index'));
+        }
+
+        return view('admin.condidats.show')->with('condidat', $condidat);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified condidat.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     *
+     * @return Response
      */
     public function edit($id)
     {
-        //
+        $condidat = $this->condidatRepository->find($id);
+
+        if (empty($condidat)) {
+            Flash::error('condidat not found');
+
+            return redirect(route('admin.condidats.index'));
+        }
+
+        return view('admin.condidats.edit')->with('condidat', $condidat);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified condidat in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @param UpdateCondidatRequest $request
+     *
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update($id, UpdateCondidatRequest $request)
     {
-        //
+        $condidat = $this->condidatRepository->find($id);
+
+        if (empty($condidat)) {
+            Flash::error('condidat not found');
+
+            return redirect(route('admin.condidats.index'));
+        }
+
+        $condidat = $this->condidatRepository->update($request->all(), $id);
+
+        Flash::success('condidat updated successfully.');
+
+        return redirect(route('admin.condidats.index'));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified formateur from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy($id)
     {
-        //
+        $condidat = $this->condidatRepository->find($id);
+
+        if (empty($condidat)) {
+            Flash::error('condidat not found');
+
+            return redirect(route('admin.condidats.index'));
+        }
+
+        $this->condidatRepository->delete($id);
+
+        Flash::success('condidat deleted successfully.');
+
+        return redirect(route('admin.condidats.index'));
     }
 }
